@@ -116,7 +116,7 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav">
                         <a href="index.php" class="nav-item nav-link">Accueil</a>
-                        <a href="about.php" class="nav-item nav-link active">A propos</a>
+                        <a href="about.php" class="nav-item nav-link">A propos</a>
                         <a href="forum.php" class="nav-item nav-link">Forum</a>
                         <a href="articles.php" class="nav-item nav-link">Articles</a>
                         <a href="team.php" class="nav-item nav-link">Equipe</a>
@@ -129,7 +129,7 @@
                             </div>
                         </div>
 
-                        <a href="contact.php" class="nav-item nav-link">Contact</a>
+                        <a href="contact.php" class="nav-item nav-link active">Contact</a>
                     </div>
                     <div class="ms-auto d-none d-lg-flex">
                         <a class="btn btn-sm-square btn-primary ms-2" href=""><i class="fab fa-facebook-f"></i></a>
@@ -143,47 +143,97 @@
     </div>
     <!-- Navbar End -->
 
-    
-
-
     <!-- Page Header Start -->
-    <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container-fluid page-header py-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container text-center py-5 mt-4">
-            <h1 class="display-2 text-white mb-3 animated slideInDown">Bienvenue</h1>
+            <h1 class="display-2 text-white mb-3 animated slideInDown">Contact</h1>
         </div>
     </div>
     <!-- Page Header End -->
 
-    
-    <!-- About Start -->
+
+    <!-- Contact Start -->
     <div class="container-fluid py-5">
-        <div class="container">
-            <div class="row g-5">
-                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
-                    <div class="row g-0">
-                        <div class="col-6">
-                            <img class="img-fluid" src="img/about-1.jpg">
+        <div class="container py-5">
+            <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+                <h1 class="display-6 mb-3">N'hésitez pas à nous contacter!</h1>
+            </div>
+            <br><br>
+            <div class="row contact-info position-relative g-0 mb-5">
+                <div class="col-lg-6">
+                    <a href="tel:+0123456789" class="d-flex justify-content-lg-center bg-primary p-4">
+                        <div class="icon-box-light flex-shrink-0">
+                            <i class="bi bi-phone text-dark"></i>
                         </div>
-                        <div class="col-6">
-                            <img class="img-fluid" src="img/about-2.jpg">
+                        <div class="ms-3">
+                            <h5 class="text-white">Tél</h5>
+                            <h2 class="text-white mb-0">+216 XX XXX XXX</h2>
                         </div>
-                        <div class="col-6">
-                            <img class="img-fluid" src="img/about-3.jpg">
-                        </div>
-                    </div>
+                    </a>
                 </div>
-                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
-                    <h1 class="display-6 mb-4">Bienvenue chez Health & Care! </h1>
-                    <p class="mb-4"> Notre mission est de créer un espace en ligne où la santé devient accessible à tous. Nous réunissons une équipe de spécialistes médicaux dévoués, passionnés par votre bien-être. Que vous cherchiez des conseils personnalisés, des réponses à vos questions de santé, ou simplement une communauté engagée, vous êtes au bon endroit. Avec Health & Care, découvrez une approche collaborative de la santé où l'information, l'expertise, et le soutien se rencontrent pour vous guider vers une vie plus saine et épanouissante.</p>
+                <div class="col-lg-6">
+                    <a href="mailto:info@h&c.com.com" class="d-flex justify-content-lg-center bg-primary p-4">
+                        <div class="icon-box-light flex-shrink-0">
+                            <i class="bi bi-envelope text-dark"></i>
+                        </div>
+                        <div class="ms-3">
+                            <h5 class="text-white">Email</h5>
+                            <h2 class="text-white mb-0">info@h&c.com</h2>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="row g-5">
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <h3 id="titlecontact">Vous avez rencontré un probléme ?</h3>
+                    <?php 
+                        if(isset($_GET["mes"])){
+                            echo '<div class="alert alert-success" role="alert">'.$_GET["mes"].'</div>';
+                        }
+                    ?>
+                    <form method="POST" action="contact_process.php">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="name" name="nom" placeholder="Nom" required>
+                                    <label for="name">Nom</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                                    <label for="email">Email</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="subject" name="sujet" placeholder="Sujet" required>
+                                    <label for="subject">Sujet</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <textarea class="form-control" placeholder="Message" name="message" id="message" style="height: 200px" required></textarea>
+                                    <label for="message">Message</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button class="btn btn-primary py-3 px-5" type="submit" name="btnCtc">Envoyer</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
+                    <img src="img/feelsgood.jpeg">
                 </div>
             </div>
         </div>
     </div>
-    <!-- About End -->
+    <!-- Contact End -->
 
 
-      <!-- Footer Start -->
-      <div class="container-fluid footer position-relative bg-dark text-white-50 py-5 wow fadeIn" data-wow-delay="0.1s">
+    <!-- Footer Start -->
+    <div class="container-fluid footer position-relative bg-dark text-white-50 py-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container">
             <div class="row g-5 py-5">
                 <div class="col-lg-6 pe-lg-5">

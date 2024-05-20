@@ -116,9 +116,9 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav">
                         <a href="index.php" class="nav-item nav-link">Accueil</a>
-                        <a href="about.php" class="nav-item nav-link active">A propos</a>
+                        <a href="about.php" class="nav-item nav-link">A propos</a>
                         <a href="forum.php" class="nav-item nav-link">Forum</a>
-                        <a href="articles.php" class="nav-item nav-link">Articles</a>
+                        <a href="articles.php" class="nav-item nav-link active">Articles</a>
                         <a href="team.php" class="nav-item nav-link">Equipe</a>
 
                         <div class="nav-item dropdown">
@@ -143,47 +143,80 @@
     </div>
     <!-- Navbar End -->
 
-    
 
 
-    <!-- Page Header Start -->
-    <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+
+
+     <!-- Page Header Start -->
+     <div class="container-fluid page-header py-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container text-center py-5 mt-4">
-            <h1 class="display-2 text-white mb-3 animated slideInDown">Bienvenue</h1>
+            <h1 style="color: aliceblue;">Consultez nos Articles</h1>
         </div>
     </div>
     <!-- Page Header End -->
 
     
-    <!-- About Start -->
-    <div class="container-fluid py-5">
-        <div class="container">
-            <div class="row g-5">
-                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
-                    <div class="row g-0">
-                        <div class="col-6">
-                            <img class="img-fluid" src="img/about-1.jpg">
-                        </div>
-                        <div class="col-6">
-                            <img class="img-fluid" src="img/about-2.jpg">
-                        </div>
-                        <div class="col-6">
-                            <img class="img-fluid" src="img/about-3.jpg">
+    <!-- Service Start -->
+    <div class="container-fluid container-service py-5" style="width: 1200px; height: auto;">
+            <?php 
+                require('database/cnx.php');
+                $sqlCat = "SELECT * FROM catart";
+                $envoiCat = @mysql_query($sqlCat);
+                while($resCat = @mysql_fetch_array($envoiCat)){
+                    $idCat = $resCat["idCat"];
+            ?>
+
+        <h1><?php echo $resCat["categorie"] ; ?></h1>
+
+        <div id="carousel<?php echo $resCat["idCat"] ; ?>" class="carousel slide">
+        
+            <div class="carousel-inner">
+                <?php 
+                    
+                    $sqlart = "SELECT * FROM article WHERE etatArt = 1 AND catArt = '$idCat'";
+                    $envoiart = mysql_query($sqlart);
+                    $active = true; // Variable to track the first item as active
+                    while($resart = mysql_fetch_array($envoiart)){
+                ?>
+                <div class="carousel-item <?php echo $active ? 'active' : ''; ?>">
+                    <img src="spec/articleimg/thumbnail/<?php echo $resart['thumbArt']; ?>" class="d-block w-100" alt="...">
+                    <div class="carousel-caption">
+                        <div class="container" style="margin-left: 100px;">
+                            <div class="row justify-content-start">
+                                <div class="col-lg-7 text-start">
+                                    <h1><?php echo $resart['titreArt']; ?></h1>
+                                    <p class="mb-5 animated slideInRight"><?php echo $resart['descArt']; ?></p>
+                                    <a href="articleitem.php?id=<?php echo $resart['idArt'];?>" class="btn btn-primary py-3 px-5 animated slideInRight">Découvrir</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
-                    <h1 class="display-6 mb-4">Bienvenue chez Health & Care! </h1>
-                    <p class="mb-4"> Notre mission est de créer un espace en ligne où la santé devient accessible à tous. Nous réunissons une équipe de spécialistes médicaux dévoués, passionnés par votre bien-être. Que vous cherchiez des conseils personnalisés, des réponses à vos questions de santé, ou simplement une communauté engagée, vous êtes au bon endroit. Avec Health & Care, découvrez une approche collaborative de la santé où l'information, l'expertise, et le soutien se rencontrent pour vous guider vers une vie plus saine et épanouissante.</p>
-                </div>
+                <?php $active = false; // Set active to false after the first item
+                 }  
+                ?>
             </div>
+            
+            <button class="carousel-control-prev" type="button" data-bs-target="#carousel<?php echo $resCat["idCat"] ; ?>" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carousel<?php echo $resCat["idCat"] ; ?>" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
         </div>
+        <hr>
+        <br><br>
+        <?php } ?>
     </div>
-    <!-- About End -->
 
 
-      <!-- Footer Start -->
-      <div class="container-fluid footer position-relative bg-dark text-white-50 py-5 wow fadeIn" data-wow-delay="0.1s">
+   
+
+
+    <!-- Footer Start -->
+    <div class="container-fluid footer position-relative bg-dark text-white-50 py-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container">
             <div class="row g-5 py-5">
                 <div class="col-lg-6 pe-lg-5">

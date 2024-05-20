@@ -1,4 +1,6 @@
-
+<?php 
+    require("database/cnx.php");
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -31,6 +33,31 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+
+    <style>
+      .circular { 
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 3px 3px 1px gray;
+        border: 10px solid rgb(45, 46, 131);
+       }
+       .circular img{
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+       }
+    </style>
 </head>
 
 <body>
@@ -116,8 +143,8 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav">
                         <a href="index.php" class="nav-item nav-link">Accueil</a>
-                        <a href="about.php" class="nav-item nav-link active">A propos</a>
-                        <a href="forum.php" class="nav-item nav-link">Forum</a>
+                        <a href="about.php" class="nav-item nav-link">A propos</a>
+                        <a href="forum.php" class="nav-item nav-link active">Forum</a>
                         <a href="articles.php" class="nav-item nav-link">Articles</a>
                         <a href="team.php" class="nav-item nav-link">Equipe</a>
 
@@ -143,47 +170,82 @@
     </div>
     <!-- Navbar End -->
 
-    
+
+
 
 
     <!-- Page Header Start -->
-    <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container-fluid page-header py-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container text-center py-5 mt-4">
-            <h1 class="display-2 text-white mb-3 animated slideInDown">Bienvenue</h1>
+            <h1 style="color: aliceblue;">Vous Avez des Questions ?</h1>
+            <br>
+            <a href="inscription.php" class="btn btn-primary py-3 px-5 animated slideInRight" style="background-color: #29539e;">Commencer</a>
         </div>
     </div>
     <!-- Page Header End -->
 
     
-    <!-- About Start -->
-    <div class="container-fluid py-5">
-        <div class="container">
-            <div class="row g-5">
-                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
-                    <div class="row g-0">
-                        <div class="col-6">
-                            <img class="img-fluid" src="img/about-1.jpg">
-                        </div>
-                        <div class="col-6">
-                            <img class="img-fluid" src="img/about-2.jpg">
-                        </div>
-                        <div class="col-6">
-                            <img class="img-fluid" src="img/about-3.jpg">
-                        </div>
-                    </div>
+    <!-- Service Start -->
+    <div class="container-fluid container-service py-5">
+        <div class="container py-5">
+            <div class="container" style="border-bottom: 1px solid black; padding-bottom: 20px;">
+                <div class="row">
+                    <input class="form-control form-control-lg" type="text" name="recherchetext" placeholder="Rechercher Forum" aria-label=".form-control-lg example" REQUIRED> 
                 </div>
-                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
-                    <h1 class="display-6 mb-4">Bienvenue chez Health & Care! </h1>
-                    <p class="mb-4"> Notre mission est de créer un espace en ligne où la santé devient accessible à tous. Nous réunissons une équipe de spécialistes médicaux dévoués, passionnés par votre bien-être. Que vous cherchiez des conseils personnalisés, des réponses à vos questions de santé, ou simplement une communauté engagée, vous êtes au bon endroit. Avec Health & Care, découvrez une approche collaborative de la santé où l'information, l'expertise, et le soutien se rencontrent pour vous guider vers une vie plus saine et épanouissante.</p>
-                </div>
+                <div class="row">
+                    <a href="inscription.php" class="btn btn-primary btn-lg">Rechercher</a>
+                </div>  
             </div>
+            <br><br>
+                    <?php 
+                        $sqlquest = "SELECT * FROM quest ORDER BY dateQuest DESC";
+                        $envoiquest = @mysql_query($sqlquest);
+                        while($resquest = mysql_fetch_array($envoiquest)){
+                            $reqIdUser = $resquest["idUser"];
+                            $sqluser = "SELECT * FROM user WHERE idUser = '$reqIdUser'";
+                            $envoiuser = @mysql_query($sqluser);
+                            while($resuser = mysql_fetch_array($envoiuser)){
+                            if($resuser["Photo"]==""){
+                                $resuser["Photo"] = "person.jpg";
+                            }
+                    ?>
+
+                    <div class="card" style="border: 2px solid rgb(45, 46, 131); box-shadow: 3px 3px 3px gray; border-radius: 10px;">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-2">
+                                    <div class="circular" style="height: 40px; width: 40px; border: 3px solid rgb(45, 46, 131);">
+                                        <img src="UI/pfp/<?php echo  $resuser['Photo'];?>" alt="" style="height: 40px; width: auto;">
+                                    </div>
+                                </div>
+                                <div class="col-8 text-left" style="padding-top: 5px;">
+                                    <h5><a href="inscription.php"><?php echo $resuser['prenomUser']." ".$resuser['nomUser']; ?></a></h5>
+                                </div>                                 
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <blockquote class="blockquote mb-0">
+                                <h3><?php echo $resquest['titreQuest']; ?></h3>
+                                <p><?php echo $resquest['details']; ?></p>                           
+                            </blockquote>
+                        </div>
+                        <a href="inscription.php" class="btn" style="margin: 2px; color: white; background-color: rgb(45, 46, 131); border-radius: 4px;" type="button" aria-expanded="false" aria-controls="collapseExample">
+                            Réponses...
+                        </a>
+                    </div>
+                    <br><br>
+                    <?php }} ?>
         </div>
     </div>
-    <!-- About End -->
+    <!-- Service End -->
+    <!-- Service End -->
 
 
-      <!-- Footer Start -->
-      <div class="container-fluid footer position-relative bg-dark text-white-50 py-5 wow fadeIn" data-wow-delay="0.1s">
+   
+
+
+    <!-- Footer Start -->
+    <div class="container-fluid footer position-relative bg-dark text-white-50 py-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container">
             <div class="row g-5 py-5">
                 <div class="col-lg-6 pe-lg-5">

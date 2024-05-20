@@ -116,10 +116,10 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav">
                         <a href="index.php" class="nav-item nav-link">Accueil</a>
-                        <a href="about.php" class="nav-item nav-link active">A propos</a>
+                        <a href="about.php" class="nav-item nav-link">A propos</a>
                         <a href="forum.php" class="nav-item nav-link">Forum</a>
                         <a href="articles.php" class="nav-item nav-link">Articles</a>
-                        <a href="team.php" class="nav-item nav-link">Equipe</a>
+                        <a href="team.php" class="nav-item nav-link active">Equipe</a>
 
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Inscription</a>
@@ -143,47 +143,63 @@
     </div>
     <!-- Navbar End -->
 
-    
+
+
+  
 
 
     <!-- Page Header Start -->
     <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container text-center py-5 mt-4">
-            <h1 class="display-2 text-white mb-3 animated slideInDown">Bienvenue</h1>
+            <h1 class="display-2 text-white mb-3 animated slideInDown">Notre Equipe</h1>
         </div>
     </div>
     <!-- Page Header End -->
+<?php require ('database/cnx.php'); ?>
 
     
-    <!-- About Start -->
-    <div class="container-fluid py-5">
-        <div class="container">
-            <div class="row g-5">
-                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
-                    <div class="row g-0">
-                        <div class="col-6">
-                            <img class="img-fluid" src="img/about-1.jpg">
-                        </div>
-                        <div class="col-6">
-                            <img class="img-fluid" src="img/about-2.jpg">
-                        </div>
-                        <div class="col-6">
-                            <img class="img-fluid" src="img/about-3.jpg">
+    <!-- Team Start -->
+    <div class="container-fluid container-team py-5">
+        <div class="container pb-5">
+            
+            <div class="row g-4">
+               <?php 
+                    $sql = "SELECT * FROM specialiste WHERE etatSpec = 1";
+                    $envoi = @mysql_query($sql);
+                    while($res = @mysql_fetch_array($envoi)){
+                        if($res["photoSpec"]==""){
+                            $res["photoSpec"]= "person.jpg";
+                        }
+               ?> 
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">                   
+                    <div class="team-item">
+                            <div class="position-relative overflow-hidden">
+                                <img class="img-fluid w-100" src="spec/pfp/<?php echo $res["photoSpec"]; ?>" alt="">
+                                <div class="team-social">
+                                    <a class="btn btn-square btn-light mx-1" href="specialist.php?id=<?php echo $res["idSpec"];  ?>">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5"/>
+                                            <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0z"/>
+                                        </svg>
+                                    </a>
+
+                                </div>
+                            </div>
+                        <div class="text-center p-4">
+                            <h5 class="mb-1"><a href="specialist.php?id=<?php echo $res['idSpec']; ?>"><?php echo $res["nomSpec"]." ".$res["prenomSpec"]; ?></a></h5>
+                            <span><?php echo $res["specialite"]; ?></span>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
-                    <h1 class="display-6 mb-4">Bienvenue chez Health & Care! </h1>
-                    <p class="mb-4"> Notre mission est de créer un espace en ligne où la santé devient accessible à tous. Nous réunissons une équipe de spécialistes médicaux dévoués, passionnés par votre bien-être. Que vous cherchiez des conseils personnalisés, des réponses à vos questions de santé, ou simplement une communauté engagée, vous êtes au bon endroit. Avec Health & Care, découvrez une approche collaborative de la santé où l'information, l'expertise, et le soutien se rencontrent pour vous guider vers une vie plus saine et épanouissante.</p>
-                </div>
+                <?php } ?>
             </div>
         </div>
     </div>
-    <!-- About End -->
+    <!-- Team End -->
 
 
-      <!-- Footer Start -->
-      <div class="container-fluid footer position-relative bg-dark text-white-50 py-5 wow fadeIn" data-wow-delay="0.1s">
+    <!-- Footer Start -->
+    <div class="container-fluid footer position-relative bg-dark text-white-50 py-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container">
             <div class="row g-5 py-5">
                 <div class="col-lg-6 pe-lg-5">
