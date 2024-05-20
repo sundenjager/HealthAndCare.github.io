@@ -1,0 +1,40 @@
+
+        <div class="col-1" style="width: 5%; border-right: 3px ridge rgb(45, 46, 131);">
+        <a href="" data-bs-toggle="offcanvas" data-bs-target="#sidelist" aria-controls="sidelist">
+          <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+          </svg>
+        </a>
+        <!-- SideList -->
+        <div class="offcanvas offcanvas-start" style="background-color: #3368c6; border-right: 3px ridge rgb(45, 46, 131);" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="sidelist" aria-labelledby="offcanvasScrollingLabel">
+          <div class="offcanvas-header" style="border-bottom: 3px ridge rgb(45, 46, 131); background-color: rgb(45, 46, 131);">
+            <h5 class="offcanvas-title" id="offcanvasScrollingLabel"><font color="white">Health & Care</font></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <div class="container text-center">
+              <div class="row sidelist"><a href="index.php"><h5>Gestion des Utilisateurs</h5></a></div>
+              <div class="row sidelist"><a href="specs.php"><h5>Gestion des Spécialistes</h5></a></div>
+              <div class="row sidelist"><a href="arts.php"><h5>Gestion des Articles</h5></a></div>
+              <div class="row sidelist"><a href="pubs.php"><h5>Gestion des Publications</h5></a></div>
+              <div class="row sidelist"><a href="signal.php"><h5>Gestion des Signalisations</h5></a></div>
+              <div class="row sidelist"><a href="contact.php"><h5>Email/Contact</h5></a></div>
+            </div>
+            <style>
+              .row.sidelist{
+                border-bottom: 2px solid white;
+                height: 75px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                color: white;
+              }
+              .row.sidelist h5{ 
+                color: white;
+              }
+            </style>
+          </div>
+        </div>
+        <!-- end of SideList -->
+      </div>
